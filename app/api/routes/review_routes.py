@@ -12,6 +12,9 @@ router = APIRouter()
 async def review_pr(data: ReviewRequest):
     try:
         return await run_pr_review(data.pr_url)
+    except ValueError as e:
+        logger.warning("Invalid request: %s", e)
+        raise HTTPException(status_code=400, detail=str(e)) from e
     except Exception as e:
         logger.exception("PR review failed")
         raise HTTPException(status_code=500, detail=str(e)) from e

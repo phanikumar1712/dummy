@@ -49,8 +49,17 @@ def fetch_pr_diff(pr_url: str) -> str:
     response = requests.get(api_url, headers=headers, timeout=30)
 
     if response.status_code != 200:
+        message = response.text
+        try:
+            body = response.json()
+            if isinstance(body, dict) and body.get("message"):
+                message = body["message"]
+        except ValueError:
+            pass
+
         raise RuntimeError(
-            f"GitHub API error ({response.status_code}): {response.text}"
+            f"GitHub API error ({response.status_code}): {message}. "
+            "Check that the PR URL is correct and that the token has access to the repo."
         )
 
     return response.text

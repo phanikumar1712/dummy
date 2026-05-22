@@ -1,0 +1,17 @@
+Review this pull request diff for code quality issues.
+
+Check for:
+- Duplicated logic
+- Poor naming or unclear APIs
+- Missing error handling
+- Overly complex functions
+- Dead code or unused imports
+- Inconsistent style
+
+Return a STRICT JSON array only. Each item must have:
+file, severity (LOW|MEDIUM|HIGH|CRITICAL), category (QUALITY), issue, suggestion
+
+If no issues are found, return [].
+
+Diff:
+{diff}

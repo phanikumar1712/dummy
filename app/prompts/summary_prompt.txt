@@ -1,0 +1,9 @@
+Summarize the following PR review findings in 2-4 sentences for a developer.
+
+Total issues: {issue_count}
+Categories present: {categories}
+
+Issues:
+{issues_text}
+
+Write a concise, actionable summary. Do not use markdown code fences.

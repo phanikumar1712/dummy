@@ -1,0 +1,18 @@
+Review this pull request diff for security vulnerabilities.
+
+Check for:
+- SQL injection and unsafe queries
+- XSS and unsafe HTML rendering
+- Hardcoded secrets, API keys, or tokens
+- Insecure authentication or authorization
+- Path traversal and unsafe file access
+- Insecure deserialization
+- Missing input validation
+
+Return a STRICT JSON array only. Each item must have:
+file, severity (LOW|MEDIUM|HIGH|CRITICAL), category (SECURITY), issue, suggestion
+
+If no issues are found, return [].
+
+Diff:
+{diff}

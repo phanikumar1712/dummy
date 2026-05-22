@@ -1,0 +1,17 @@
+Review this pull request diff for performance issues.
+
+Check for:
+- N+1 queries or redundant database calls
+- Inefficient loops or repeated work
+- Missing caching where appropriate
+- Blocking I/O in async paths
+- Large payloads or unbounded memory use
+- Expensive operations in hot paths
+
+Return a STRICT JSON array only. Each item must have:
+file, severity (LOW|MEDIUM|HIGH|CRITICAL), category (PERFORMANCE), issue, suggestion
+
+If no issues are found, return [].
+
+Diff:
+{diff}

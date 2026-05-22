@@ -1,0 +1,16 @@
+Review this pull request diff for testing gaps.
+
+Check for:
+- Missing unit or integration tests for new logic
+- Untested edge cases and error paths
+- Weak or missing assertions
+- Flaky test patterns
+- Tests that do not match changed behavior
+
+Return a STRICT JSON array only. Each item must have:
+file, severity (LOW|MEDIUM|HIGH|CRITICAL), category (TESTING), issue, suggestion
+
+If no issues are found, return [].
+
+Diff:
+{diff}

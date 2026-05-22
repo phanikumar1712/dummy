@@ -9,6 +9,14 @@ from app.models.response_models import ReviewResponse
 
 
 class TestRoutes(unittest.TestCase):
+    def test_home_route_exists(self):
+        client = TestClient(app)
+        response = client.get("/")
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data["status"], "running")
+        self.assertIn("health", data["endpoints"])
+
     def test_health_route_exists(self):
         client = TestClient(app)
         response = client.get("/health")

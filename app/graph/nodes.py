@@ -7,14 +7,8 @@ from app.agents.quality_agent import quality_agent
 from app.agents.security_agent import security_agent
 from app.agents.summary_agent import summary_agent
 from app.agents.testing_agent import testing_agent
-from app.static_analysis.bandit_runner import run_bandit
-from app.static_analysis.pylint_runner import run_pylint
-from app.static_analysis.semgrep_runner import run_semgrep
-from app.visualizer.issue_mapper import (
-    map_bandit_results,
-    map_pylint_results,
-    map_semgrep_results,
-)
+from app.static_analysis.shared.registry import run_static_analysis
+from app.visualizer.issue_mapper import map_static_analysis_results
 
 SPECIALIST_AGENTS = [
     security_agent,
@@ -36,14 +30,16 @@ async def run_specialist_agents(state):
 
     static_root = os.environ.get("STATIC_ANALYSIS_ROOT")
     if static_root:
-        merged["security_issues"] = (
-            list(merged.get("security_issues", []))
-            + map_semgrep_results(run_semgrep(static_root))
-            + map_bandit_results(run_bandit(static_root))
+        static_analysis_results = run_static_analysis(static_root)
+        merged["security_issues"] = list(
+            merged.get("security_issues", [])
+        ) + map_static_analysis_results(
+            static_analysis_results["security"], "SECURITY"
         )
-        merged["quality_issues"] = (
-            list(merged.get("quality_issues", []))
-            + map_pylint_results(run_pylint(static_root))
+        merged["quality_issues"] = list(
+            merged.get("quality_issues", [])
+        ) + map_static_analysis_results(
+            static_analysis_results["quality"], "QUALITY"
         )
 
     return merged

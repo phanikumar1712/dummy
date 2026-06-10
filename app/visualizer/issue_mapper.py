@@ -60,3 +60,18 @@ def map_pylint_results(results: list[dict]) -> list[Issue]:
             )
         )
     return issues
+
+
+def map_static_analysis_results(results: list[dict], category: str) -> list[Issue]:
+    issues = []
+    for item in results:
+        issues.append(
+            map_finding(
+                file=item.get("file", "unknown"),
+                severity=item.get("severity", "MEDIUM"),
+                category=category,
+                issue=item.get("issue", "Static analysis finding"),
+                suggestion=item.get("suggestion", "Review and fix this finding."),
+            )
+        )
+    return issues
